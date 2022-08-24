@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const Product = require("../../models/productSchema");
+const Product = require("../schemas/productSchema");
 const storage = new Map();
 const deletedStorage = new Map();
 const deletedComments = new Map();
@@ -15,12 +15,8 @@ router.use(bodyParser.json());
 
 //CREATE
 router.post("/product", (req, res) => {
-  if (storage.has(req.body.id)) {
-    res.send("The item already exists.");
-  } else {
-    storage.set(req.body.id, req.body);
+    Product.create(req.body)
     res.send("Created!");
-  }
 });
 
 //VIEW LIST OF ITEMS
