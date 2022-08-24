@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const Product = require("../../models/productSchema");
 const storage = new Map();
 const deletedStorage = new Map();
 const deletedComments = new Map();
