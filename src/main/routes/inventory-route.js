@@ -3,9 +3,6 @@ const router = express.Router();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const Product = require("../schemas/productSchema");
-// const storage = new Map();
-// const deletedStorage = new Map();
-// const deletedComments = new Map();
 
 router.use(cors());
 
@@ -43,7 +40,7 @@ router.put("/product/:productId/edit", (req, res) => {
 
 //DELETE
 router.delete("/product/:productId", (req, res) => {
-  let productId = Number(req.params.productId);
+  // let productId = Number(req.params.productId);
 
   res.send('Implement logic to delete a product by an id.')
   // if (storage.has(productId)) {
@@ -60,7 +57,7 @@ router.delete("/product/:productId", (req, res) => {
 
 //UNDELETE
 router.put("/product/:productId/undelete", (req, res) => {
-  let productId = Number(req.params.productId);
+  // let productId = Number(req.params.productId);
 
   res.send('Implement logic to undelete a product by an id. This can be done at a much later date.')
   // if (deletedStorage.has(productId)) {
@@ -77,7 +74,7 @@ router.put("/product/:productId/undelete", (req, res) => {
 
 //VIEW LIST OF DELETED COMMENTS
 router.get("/deletedComments", (req, res) => {
-  let result = [];
+  // let result = [];
 
   res.send('Implement logic to add comments to a product. This can be done at a later date.');
   // deletedComments.forEach((value, key) => {
