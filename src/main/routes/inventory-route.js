@@ -2,9 +2,7 @@ const express = require("express");
 const router = express.Router();
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const storage = new Map();
-const deletedStorage = new Map();
-const deletedComments = new Map();
+const Product = require("../schemas/productSchema");
 
 router.use(cors());
 
@@ -14,85 +12,78 @@ router.use(bodyParser.json());
 
 //CREATE
 router.post("/product", (req, res) => {
-  if (storage.has(req.body.id)) {
-    res.send("The item already exists.");
-  } else {
-    storage.set(req.body.id, req.body);
+    Product.create(req.body)
     res.send("Created!");
-  }
 });
 
 //VIEW LIST OF ITEMS
 router.get("/products", (req, res) => {
-  let result = [];
-
-  storage.forEach((value) => {
-    result.push(value);
-  });
-
-  res.send(result);
+    res.send('Implement logic to get all the products.')
 });
 
 //EDIT
 router.put("/product/:productId/edit", (req, res) => {
-  let productId = Number(req.params.productId);
-  let updatedItem = {};
-  if (storage.has(productId)) {
-    updatedItem = storage.get(productId);
-    updatedItem.name = req.body.name;
-    updatedItem.description = req.body.description;
-    updatedItem.price = req.body.price;
-    updatedItem.quantity = req.body.quantity;
-    storage.set(productId, updatedItem);
-    res.send("Item has been updated!");
-  }
+
+    res.send('Implement logic to update a product by an Id.')
+  // let productId = Number(req.params.productId);
+  // let updatedItem = {};
+  // if (storage.has(productId)) {
+  //   updatedItem = storage.get(productId);
+  //   updatedItem.name = req.body.name;
+  //   updatedItem.description = req.body.description;
+  //   updatedItem.price = req.body.price;
+  //   updatedItem.quantity = req.body.quantity;
+  //   storage.set(productId, updatedItem);
+  //   res.send("Item has been updated!");
+  // }
 });
 
 //DELETE
 router.delete("/product/:productId", (req, res) => {
-  let productId = Number(req.params.productId);
+  // let productId = Number(req.params.productId);
 
-  if (storage.has(productId)) {
-    deletedStorage.set(productId, storage.get(productId));
-    storage.delete(productId);
-    if (req.body.comment !== undefined) {
-      deletedComments.set(productId, req.body.comment);
-    }
-    res.send("Item has been deleted!");
-  } else {
-    res.send("Item not found for deletion!");
-  }
+  res.send('Implement logic to delete a product by an id.')
+  // if (storage.has(productId)) {
+  //   deletedStorage.set(productId, storage.get(productId));
+  //   storage.delete(productId);
+  //   if (req.body.comment !== undefined) {
+  //     deletedComments.set(productId, req.body.comment);
+  //   }
+  //   res.send("Item has been deleted!");
+  // } else {
+  //   res.send("Item not found for deletion!");
+  // }
 });
 
 //UNDELETE
 router.put("/product/:productId/undelete", (req, res) => {
-  let productId = Number(req.params.productId);
+  // let productId = Number(req.params.productId);
 
-  if (deletedStorage.has(productId)) {
-    storage.set(productId, deletedStorage.get(productId));
-    deletedStorage.delete(productId);
-    if (deletedComments.has(productId)) {
-      deletedComments.delete(productId);
-    }
-    res.send("Item has been undeleted!");
-  } else {
-    res.send("Item is not found in deletedStorage!");
-  }
+  res.send('Implement logic to undelete a product by an id. This can be done at a much later date.')
+  // if (deletedStorage.has(productId)) {
+  //   storage.set(productId, deletedStorage.get(productId));
+  //   deletedStorage.delete(productId);
+  //   if (deletedComments.has(productId)) {
+  //     deletedComments.delete(productId);
+  //   }
+  //   res.send("Item has been undeleted!");
+  // } else {
+  //   res.send("Item is not found in deletedStorage!");
+  // }
 });
 
 //VIEW LIST OF DELETED COMMENTS
 router.get("/deletedComments", (req, res) => {
-  let result = [];
+  // let result = [];
 
-  deletedComments.forEach((value, key) => {
-    let comment = {
-      id: key,
-      comment: value,
-    };
-    result.push(comment);
-  });
-
-  res.send(result);
+  res.send('Implement logic to add comments to a product. This can be done at a later date.');
+  // deletedComments.forEach((value, key) => {
+  //   let comment = {
+  //     id: key,
+  //     comment: value,
+  //   };
+  //   result.push(comment);
+  // });
 });
 
 
